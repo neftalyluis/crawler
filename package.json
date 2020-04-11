@@ -1,0 +1,25 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "description": "Crawler for downloading bank data",
+  "main": "src/Crawler.mjs",
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neftalyluis/crawler.git"
+  },
+  "author": "Neftaly Luis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neftalyluis/crawler/issues"
+  },
+  "homepage": "https://github.com/neftalyluis/crawler#readme",
+  "dependencies": {
+    "puppeteer": "^2.1.1"
+  },
+  "devDependencies": {
+    "standard": "^14.3.3"
+  }
+}
