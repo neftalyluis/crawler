@@ -13,7 +13,7 @@ class Auth {
     await this.page.click('button[class="rounded-red-button btn-continue"]')
 
     // Awaits for the password field to be present on the DOM
-    await this.page.waitForNavigation()
+    await this.page.waitForSelector('p[_ngcontent-c16][class="welcome"]')
     await this.page.type('input[formcontrolname="nip"]', this.password)
     await this.page.click('button[class="rounded-red-button"]')
 
@@ -25,9 +25,9 @@ class Auth {
     return this.page.url() === 'https://www.santander.com.mx/MiSitioPrivado/inicio'
   }
 
-  async alreadyLoggedIn() {
+  async alreadyLoggedIn () {
     try {
-      await this.page.waitForSelector('div[_nghost-c17]', {timeout: 5000})
+      await this.page.waitForSelector('div[_nghost-c17]', { timeout: 5000 })
       return true
     } catch (error) {
       return false
@@ -35,9 +35,9 @@ class Auth {
   }
 
   async logout () {
-    await this.page.click('div[_ngcontent-c7]')
-    await this.page.waitForSelector('ng-component[_nghost-c43]')
-    await this.page.click('button[_ngcontent-c43][class="btn btnright ng-star-inserted"]')
+    await this.page.click('a[class="txt-option text-right align-middle"] > img[src="assets/img/cerrar_sesion_header_white.svg"]')
+    await this.page.waitForSelector('ngb-modal-window[role="dialog"]', { timeout: 5000 })
+    await this.page.click('button[class="btn btnright ng-star-inserted"]')
 
     await this.page.waitForNavigation()
 

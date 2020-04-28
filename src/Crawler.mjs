@@ -1,30 +1,32 @@
 import puppeteer from 'puppeteer'
 import Auth from './Auth.mjs'
+import Accounts from './Accounts.mjs'
 
 class Crawler {
   static async run (user, password) {
-    const browser = await puppeteer.launch({ headless: false, defaultViewport: { width: 1366, height: 768} })
+    const browser = await puppeteer.launch({
+      headless: false,
+      defaultViewport: { width: 1366, height: 768 },
+      args: [
+        '--window-size=1366,768'
+      ]
+    })
+
     const page = await browser.newPage()
 
-    const auth = await new Auth(page, user, password)
+    const auth = new Auth(page, user, password)
 
     const loginResult = await auth.login()
 
     if (!loginResult) {
       await browser.close()
-      throw new Error("No se pudo hacer Login");
+      throw new Error('No se pudo hacer Login')
     }
 
-    console.log("Se pudo hacer login?: ", loginResult)
+    const accounts = await new Accounts(page).listAll()
+    console.log(accounts)
 
-    const logoutResult = await auth.logout()
-
-    console.log(logoutResult)
-
-    await new Promise((resolve, _reject) => {
-      setTimeout(() => resolve('done!'), 1000000)
-    })
-
+    await auth.logout()
     await browser.close()
   }
 }
