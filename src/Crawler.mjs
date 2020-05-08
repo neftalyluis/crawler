@@ -1,6 +1,7 @@
 import puppeteer from 'puppeteer'
 import Auth from './Auth.mjs'
 import Accounts from './Accounts.mjs'
+import Movements from './Movements.mjs'
 
 class Crawler {
   static async run (user, password) {
@@ -25,6 +26,8 @@ class Crawler {
 
     const accounts = await new Accounts(page).listAll()
     console.log(accounts)
+
+    const movements = await new Movements(page).getFromAccount()
 
     await auth.logout()
     await browser.close()
